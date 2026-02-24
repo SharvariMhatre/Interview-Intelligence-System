@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# 🏗️ AI Interview Intelligence System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Texas A&M University – Mays Business School Hackathon  
+Built using AWS Serverless + Generative AI
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Overview
 
-### `npm start`
+The AI Interview Intelligence System generates structured, high-quality interview preparation materials from company research.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Users enter a company name and optionally upload documents.  
+The system processes the request and generates:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 📄 Interviewer Brief
+- 📘 Pre-Interview Packet for the Interviewee
 
-### `npm test`
+The entire workflow is powered by AWS serverless infrastructure and Amazon Bedrock.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🧠 Problem
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Preparing for executive interviews requires:
+- Manual research
+- Competitive analysis
+- Structuring intelligent questions
+- Identifying assumptions to validate
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This system automates that process using AI.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🏗️ Architecture (Actual Stack Used)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Frontend:
+- AWS Amplify (React)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Backend:
+- API Gateway (REST endpoints)
+- AWS Lambda (Python 3.12)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Storage:
+- Amazon S3 (raw input + generated outputs)
+- DynamoDB (session metadata + status tracking)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+AI:
+- Amazon Bedrock (Claude model)
 
-## Learn More
+Security:
+- IAM roles with least-privilege access
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔄 End-to-End Workflow
 
-### Code Splitting
+1️⃣ User submits company name (+ optional files) via Amplify frontend  
+2️⃣ API Gateway triggers Lambda  
+3️⃣ Lambda:
+   - Stores metadata in DynamoDB
+   - Stores documents in S3
+   - Constructs structured prompt
+   - Calls Amazon Bedrock  
+4️⃣ Bedrock generates:
+   - Interviewer Brief
+   - Pre-Interview Packet  
+5️⃣ Outputs saved to S3  
+6️⃣ DynamoDB updated to COMPLETE  
+7️⃣ Frontend polls status and enables download  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 📄 Output Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Interviewer Brief
+- Company Overview
+- Market Context
+- AI Assumptions to Verify
+- 8–10 Structured Interview Questions
+- Suggested Conversation Flow
 
-### Making a Progressive Web App
+### Pre-Interview Packet
+- Summary of findings
+- Areas AI may be wrong
+- 6–8 question menu options
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🛠️ Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Layer | Tool |
+|-------|------|
+| Frontend | AWS Amplify + React |
+| API | Amazon API Gateway |
+| Compute | AWS Lambda |
+| Database | DynamoDB |
+| Storage | Amazon S3 |
+| AI Model | Amazon Bedrock |
+| Security | IAM |
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
